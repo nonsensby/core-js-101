@@ -95,8 +95,8 @@ function getFirstChar(value) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /**
@@ -224,8 +224,23 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const strArr = str.split('');
+  const alphabetUp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const alphabetDown = 'abcdefghijklmnopqrstuvwxyz';
+  let result = '';
+  for (let i = 0; i < strArr.length; i += 1) {
+    if (alphabetUp.indexOf(strArr[i]) !== -1) {
+      let index = alphabetUp.indexOf(strArr[i]) + 13;
+      if (index > 25) { index -= 26; }
+      result += alphabetUp[index];
+    } else if (alphabetDown.indexOf(strArr[i]) !== -1) {
+      let index = alphabetDown.indexOf(strArr[i]) + 13;
+      if (index > 25) { index -= 26; }
+      result += alphabetDown[index];
+    } else result += strArr[i];
+  }
+  return result;
 }
 
 /**
@@ -241,8 +256,9 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if ((value instanceof String) || (typeof value === 'string')) { return true; }
+  return false;
 }
 
 
@@ -270,8 +286,13 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const deck = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  const result = deck.findIndex((item) => item === value);
+  return result;
 }
 
 
